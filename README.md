@@ -1,3 +1,3 @@
 # NumericalGroundwaterExamples
 
-![image-20221031220355638](/Users/jacksonswilley/Library/Application Support/typora-user-images/image-20221031220355638.png)
+![image](https://user-images.githubusercontent.com/114691192/199142850-175eaccb-1918-4fa9-a57f-3304bb16f246.png)
