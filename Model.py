@@ -17,7 +17,7 @@ class Model(metaclass = Meta):
             raise AttributeError('State is incompatible with Scheme.\n'
                 'Check required number of initial conditions for scheme.')
 
-        NumberOfSteps = __self__.Configuration.RunLength
+        NumberOfSteps = __self__.Configuration.TimingInfo.NumberOfSteps
         NumberOfICs = __self__.Scheme.NumberOfInitialConditions
 
         StartTime = time.time()

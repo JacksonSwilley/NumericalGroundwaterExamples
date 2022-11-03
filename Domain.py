@@ -4,19 +4,21 @@ parameters in a distributed fashion.
 '''
 class Domain(metaclass = Meta):
 
-    Count = None
     Elements = None
-    UpdateElements = None
+    Count = None
+    Shape = None
+    Regular = False
 
     def CheckAttributes(__self__):
-        if __self__.Count is None:
-            raise NotImplementedError(
-                'Subclass must define __self__.Count attribute.')
-        
+
         if __self__.Elements is None:
             raise NotImplementedError(
                 'Subclass must define __self__.Elements attribute.')
 
-        if __self__.UpdateElements is None:
+        if __self__.Count is None:
             raise NotImplementedError(
-                'Subclass must define __self__.UpdateElements attribute.')
+                'Subclass must define __self__.Count attribute.')
+        
+        if __self__.Shape is None:
+            raise NotImplementedError(
+                'Subclass must define __self__.Shape attribute.')

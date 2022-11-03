@@ -1,8 +1,14 @@
+
+'''
+An abstract base class that requires all concrete subclasses to have a
+method for stepping forward once
+'''
 class Scheme(metaclass = Meta):
+    
+    Step = None
+    NumberOfInitialConditions = 1
 
-    def UpdateState(State):
-        pass
-
-
-    def __init__(Method, Solver):
-        pass
+    def CheckAttributes(__self__):
+        if __self__.Step is None:
+            raise NotImplementedError(
+                'Subclass must define __self__.Step method.')
