@@ -1,6 +1,8 @@
 '''
 Abstract Base Class for Nodes
 '''
+from Meta import Meta
+
 class Nodes(metaclass = Meta):
 
     Points = None

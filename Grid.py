@@ -1,6 +1,7 @@
 '''
 Abstract Base Class for grids
 '''
+from Meta import Meta
 class Grid(metaclass = Meta):
 
     Nodes = None

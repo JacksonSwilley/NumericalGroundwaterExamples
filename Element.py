@@ -2,6 +2,9 @@
 Element is essentially a helper class that is the base of all domains.
 We use Element to hold the physical properties of the domain.
 '''
+
+from numpy import np
+
 class Element(object):
 
     def __init__(__self__, Index, Storage, Conductivity, Grid, Thickness):
@@ -10,7 +13,7 @@ class Element(object):
         __self__.Areas = Grid.Sidewidths[Index,:] * Thickness
         __self__.AdjacentCells = Grid.AdjacentCells[Index,:]
         __self__.Lengths = Grid.Distances[Index,:]
-        __self__.Conductivity = Conductivity
+        __self__.Conductivity = [Conductivity] * len(__self__.AdjacentCells)
         __self__.Storage = Storage
         __self__.InsideLengths = Grid.InsideLengths[Index]
         __self__.Volume = Grid.Areas[Index] * Thickness

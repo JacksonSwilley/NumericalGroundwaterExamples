@@ -1,13 +1,17 @@
 '''
 A class to create a mesh grid and calculate necessary, grid-related parameters
 '''
+from Grid import Grid
+from matplotlib.tri import triangulation
+import numpy as np
+
 class TriangularGrid(Grid):
     def __init__(__self__, Nodes):
         
         __self__.Nodes = Nodes
 
         # create triangulated grid
-        tri = Triangulation(Nodes[:,0], Nodes[:,1])
+        tri = triangulation(Nodes[:,0], Nodes[:,1])
 
         # provide the class with the number of triangles
         __self__.Count = tri.triangles.shape[0]

@@ -2,6 +2,8 @@
 Abstract Base Class for domains, which hold the grid and its input
 parameters in a distributed fashion.
 '''
+from Meta import Meta
+
 class Domain(metaclass = Meta):
 
     Elements = None
