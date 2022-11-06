@@ -9,19 +9,13 @@ import numpy as np
 
 class StackedGridDomain(Domain):
 
-    def __init__(__self__, Grid, Storage, Conductivity, Thickness=[1]):
+    def __init__(__self__, Grid, Storage, Conductivity):
 
         layers = len(Thickness)
 
         __self__.Count = Grid.Count * layers
-        __self__.Elements = [Element] * __self__.Count
+        __self__.Elements = Grid.Elements
 
-        Index = 0
-
-        for j in range(layers):
-            for i in range(Grid.Count):
-                __self__.Elements[Index] = Element(Index, Storage, Conductivity, Grid, Thickness)
-                Index = Index + 1
 
         K = np.copy(__self__.Elements[:].Conductivity)
 

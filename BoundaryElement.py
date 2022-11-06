@@ -7,8 +7,7 @@ import numpy as np
 
 class BoundaryElement(object):
 
-    def __init__(__self__, Index, Face, Center, AdjacentCells, \
-        Areas, Distances, Thickness):
+    def __init__(__self__, Index, Face, Center, AdjacentCells, Areas, Distances):
 
         __self__.Index = Index
         __self__.Face = Face
@@ -18,13 +17,3 @@ class BoundaryElement(object):
         __self__.AdjacentCells = AdjacentCells
         __self__.Areas = Areas
         __self__.Lengths = Distances
-        __self__.Thickness = Thickness
-    
-    def Area(__self__, Locator):
-        return __self__.Areas[np.where(__self__.AdjacentCells == Locator)]
-
-    def Length(__self__, Locator):
-        return __self__.Length[np.where(__self__.AdjacentCells == Locator)]
-    
-    def Conductivity(__self__, Locator):
-        return __self__.Conductivity[np.where(__self__.AdjacentCells == Locator)]

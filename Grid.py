@@ -34,10 +34,6 @@ class Grid(metaclass = Meta):
             raise NotImplementedError(
                 'Subclass must define __self__.Centers attribute.')
 
-        if __self__.Vertices is None:
-            raise NotImplementedError(
-                'Subclass must define __self__.Vertices attribute.')
-
         if __self__.AdjacentCells is None:
             raise NotImplementedError(
                 'Subclass must define __self__.AdjacentCells attribute.')
