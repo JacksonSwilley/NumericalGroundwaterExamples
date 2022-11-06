@@ -1,0 +1,9 @@
+# Ignore all files
+**
+
+# With the exception of the following
+!.gitignore
+!**/
+!**/*.gitkeep
+!**/*.py
+!**/*.md

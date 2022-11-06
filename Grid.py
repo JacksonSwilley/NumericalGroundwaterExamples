@@ -2,6 +2,8 @@
 Abstract Base Class for grids
 '''
 from Meta import Meta
+import matplotlib.pyplot as plt
+
 class Grid(metaclass = Meta):
 
     Nodes = None
