@@ -25,13 +25,7 @@ class Element(object):
         return __self__.Areas[np.where(__self__.AdjacentCells == Locator)]
 
     def Length(__self__, Locator):
-        return __self__.Length[np.where(__self__.AdjacentCells == Locator)]
-
-    def Volume(__self__, Locator):
-        return __self__.Volumes[np.where(__self__.AdjacentCells == Locator)]
+        return __self__.Lengths[np.where(__self__.AdjacentCells == Locator)]
     
     def Conductivity(__self__, Locator):
-        return __self__.Conductivity[np.where(__self__.AdjacentCells == Locator)]
-    
-    def Storage(__self__, Locator): 
-        return __self__.Storage[np.where(__self__.AdjacentCells == Locator)]
+        return __self__.Conductivities[np.where(__self__.AdjacentCells == Locator)]

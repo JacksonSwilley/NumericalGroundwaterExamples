@@ -5,11 +5,13 @@ elements and their boundary counterparts
 import numpy as np
 from Element import Element
 from BoundaryElement import BoundaryElement
+from Grid import Grid
 
-class RectangularGrid(object):
+class RectangularGrid(Grid):
     def __init__(__self__, DeltaX, DeltaY=[1], DeltaZ=[1]):
         __self__.Count = len(DeltaX) * len(DeltaY) * len(DeltaZ)
         __self__.Index = np.arange(0,__self__.Count, 1)
+        __self__.Shape = [len(DeltaX), len(DeltaY), len(DeltaZ)]
 
         id = np.reshape(__self__.Index,(len(DeltaX), len(DeltaY), len(DeltaZ)), order='F')
         AdjacentCells = np.zeros((len(DeltaX), len(DeltaY), len(DeltaZ), 6)) - 99
@@ -54,20 +56,18 @@ class RectangularGrid(object):
 
         Distances = np.zeros(np.shape(AdjacentCells), float) - 99
 
-        dx = (DeltaX[0:-1] + DeltaX[1:]) / 2
-        dy = (DeltaY[0:-1] + DeltaY[1:]) / 2
-        dz = (DeltaZ[0:-1] + DeltaZ[1:]) / 2
-
-        for k in range(len(dz)):
-            for j in range(len(dy)):
-                for i in range(len(dx)):
-                    Distances[1:,j,k,0] = dx
-                    Distances[:-1,j,k,1] = dx
-                    Distances[i,1:,k,2] = dy
-                    Distances[i,:-1,k,3] = dy
-                    Distances[i,j,1:,4] = dz
-                    Distances[i,j,:-1,5] = dz
-
+        # starting on the second to left, distance to the left (x-)
+        Distances[1:,:,:,0] = Centers[1:,:,:,0] - Centers[0:-1,:,:,0]
+        # Starting on the left, distance to the right (x+)
+        Distances[0:-1,:,:,1] = Centers[1:,:,:,0] - Centers[0:-1,:,:,0]
+        #starting one from the front, distance towards the front (y-)
+        Distances[:,1:,:,2] = Centers[:,1:,:,1] - Centers[:,0:-1,:,1]
+        # starting at the front, distance towards the back (y+)
+        Distances[:,0:-1,:,3] = Centers[:,1:,:,1] - Centers[:,0:-1:,:,1]
+        # starting one from the bottom, distances towards the bottom (z-)
+        Distances[:,:,1:,4] = Centers[:,:,1:,2] - Centers[:,:,0:-1,2]
+        # starting from the bottom, distances towards the top (z+)
+        Distances[:,:,0:-1,5] = Centers[:,:,1:,2] - Centers[:,:,0:-1,2]
 
         Areas = np.zeros(np.shape(AdjacentCells)) - 99
 
@@ -104,6 +104,7 @@ class RectangularGrid(object):
 
 
         GhostIndex = np.arange(0,GhostCount, 1)
+        __self__.BoundaryIndex = GhostIndex 
 
         # x = 0 face
         left = np.zeros((len(DeltaY), len(DeltaZ),3))
@@ -180,3 +181,6 @@ class RectangularGrid(object):
                             BoundaryAreas[i,j], BoundaryLengths)
                     
                     ticker = ticker + 1
+
+    def Show(__self__):
+        pass
