@@ -4,7 +4,7 @@ i.e. there is no accounting for dewatering.
 '''
 
 from Storage import Storage
-class HomognousStorage(Storage):
+class ConstantStorage(Storage):
     def __init__(__self__, Value):
         __self__.Value = Value
     

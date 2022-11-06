@@ -2,6 +2,10 @@
 This is a concrete subclass of Method, that creates a finite volume method matrix
 for an irregular grid and paramters that can change with state
 '''
+
+from Method import Method
+import numpy as np
+
 class IrregularFVM(Method):
 
     def BuildMatrices(__self__, Configuration, State=None):
