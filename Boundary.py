@@ -7,15 +7,10 @@ from Meta import Meta
 
 class Boundary(metaclass=Meta):
 
-    BoundaryElements = None
-    BoundaryConditons = None
+    Elements = None
     
     def CheckAttributes(__self__):
 
-        if __self__.BoundaryElements is None:
+        if __self__.Elements is None:
             raise NotImplementedError(
-                'Subclass must define __self__.BoundaryElements attribute.')
-        
-        if __self__.BoundaryConditons is None:
-            raise NotImplementedError(
-                'Subclass must define __self__.BoundaryConditions attribute.')
+                'Subclass must define __self__.Elements attribute.')
