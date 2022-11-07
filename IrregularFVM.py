@@ -25,7 +25,9 @@ class IrregularFVM(Method):
 
                 for j in range(6):
                     if element.AdjacentCells[j] >= 0:
-                        Matrix[i, j] = element.Areas[j] * element.Conductivities[j] / element.Lengths[j]        
+                        
+                        Matrix[i, int(element.AdjacentCells[j])] \
+                            = element.Areas[j] * element.Conductivities[j] / element.Lengths[j]        
                 Matrix[i, i] = -np.sum(Matrix[i, :])
 
             for boundary in Configuration.Boundary.Elements:
@@ -46,7 +48,8 @@ class IrregularFVM(Method):
 
                 for j in range(6):
                     if element.AdjacentCells[j] >= 0:
-                        Matrix[i, j] = element.Area[j] * element.Conductivities[j] / element.Lengths[j]
+                        Matrix[i, int(element.AdjacentCells[j])]\
+                            = element.Area[j] * element.Conductivities[j] / element.Lengths[j]
             
                 Matrix[i, i] = -np.sum(Matrix[i, :]) - element.Storage * element.Volume / dt
                 Solution[i] = -State.Data[i] * element.Storage * element.Volume / dt
