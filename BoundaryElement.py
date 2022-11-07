@@ -17,3 +17,12 @@ class BoundaryElement(object):
         __self__.AdjacentCells = AdjacentCells
         __self__.Areas = Areas
         __self__.Lengths = Distances
+
+    def Area(__self__, Locator):
+        return __self__.Areas[np.where(__self__.AdjacentCells == Locator)]
+
+    def Length(__self__, Locator):
+        return __self__.Lengths[np.where(__self__.AdjacentCells == Locator)]
+    
+    def Conductivity(__self__, Locator):
+        return __self__.Conductivities[np.where(__self__.AdjacentCells == Locator)]

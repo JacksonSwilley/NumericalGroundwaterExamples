@@ -130,14 +130,16 @@ class RectangularGrid(Grid):
         # z = 0 face
         bottom = np.zeros((len(DeltaX),len(DeltaY),3))
         bottom[:,:,2] = 0
-        bottom[:,:,0:-1] = Centers[:,:,0,0:-1]
+        bottom[:,:,0] = Centers[:,:,0,0]
+        bottom[:,:,1] = Centers[:,:,0,1]
 
         # z = z_max face
         top = np.zeros((len(DeltaX),len(DeltaY),3))
         top[:,:,2] = np.sum(DeltaZ)
-        top[:,:,0:-1] = Centers[:,:,0,0:-1]
+        top[:,:,0] = Centers[:,:,-1,0]
+        top[:,:,1] = Centers[:,:,-1,1]
 
-        GhostCenters = np.copy(np.array([left, right, front, back, bottom, top],dtype=object))
+        GhostCenters = [left, right, front, back, bottom, top].copy()
 
         left = id[0,:,:]
         right = id[-1,:,:]
@@ -145,7 +147,7 @@ class RectangularGrid(Grid):
         back = id[:,-1,:]
         bottom = id[:,:,0]
         top = id[:,:,-1]
-        GhostAdjacentCells = np.copy(np.array([left, right, front, back, bottom, top],dtype=object))
+        GhostAdjacentCells = [left, right, front, back, bottom, top].copy()
 
         left = Areas[0,:,:,0]
         right = left
@@ -153,7 +155,7 @@ class RectangularGrid(Grid):
         back = front
         bottom = Areas[:,:,0,4]
         top = bottom
-        GhostAreas = np.copy(np.array([left, right, front, back, bottom, top],dtype=object))
+        GhostAreas = [left, right, front, back, bottom, top].copy()
 
         left = DeltaX[0] / 2
         right = DeltaX[-1] / 2
