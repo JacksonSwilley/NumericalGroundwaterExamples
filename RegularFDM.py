@@ -4,10 +4,14 @@ for a regular grid and paramters that can change with state.
 '''
 
 from Method import Method
+from Configuration import Configuration
+from State import State
 import numpy as np
 
 class RegularFDM(Method):
-    def BuildMatrices(__self__, Configuration, State=None):
+
+    def BuildMatrices(__self__, Configuration:Configuration, \
+        State:State=None):
 
         if Configuration.Domain.Regular != True:
             raise TypeError(

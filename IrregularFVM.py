@@ -4,11 +4,14 @@ for an irregular grid and paramters that can change with state
 '''
 
 from Method import Method
+from Configuration import Configuration
+from State import State
 import numpy as np
 
 class IrregularFVM(Method):
 
-    def BuildMatrices(__self__, Configuration, State=None):
+    def BuildMatrices(__self__, Configuration:Configuration, \
+        State:State=None):
 
         n = Configuration.Domain.Count
         dt = Configuration.TimingInfo.StepSize
@@ -57,5 +60,3 @@ class IrregularFVM(Method):
                         boundary.Flux[t] 
 
         return Matrix, Solution
-
-        

@@ -12,4 +12,4 @@ class SteadyStateTiming(TimingInfo):
         __self__.StepSize = 0
         __self__.StartTime = 0
         __self__.NumberOfSteps = 1
-        __self__.Time = __self__.StartTime
+        __self__.Time = [__self__.StartTime]

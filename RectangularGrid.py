@@ -12,6 +12,7 @@ class RectangularGrid(Grid):
         __self__.Count = len(DeltaX) * len(DeltaY) * len(DeltaZ)
         __self__.Index = np.arange(0,__self__.Count, 1)
         __self__.Shape = [len(DeltaX), len(DeltaY), len(DeltaZ)]
+        __self__.Regular = True
 
         id = np.reshape(__self__.Index,(len(DeltaX), len(DeltaY), len(DeltaZ)), order='F')
         AdjacentCells = np.zeros((len(DeltaX), len(DeltaY), len(DeltaZ), 6)) - 99

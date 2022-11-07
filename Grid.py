@@ -8,6 +8,7 @@ class Grid(metaclass = Meta):
 
     Count = None
     Index = None
+    Shape = None
     Elements = None
     BoundaryCount = None
     BoundaryIndex = None
@@ -19,9 +20,13 @@ class Grid(metaclass = Meta):
             raise NotImplementedError(
                 'Subclass must define __self__.Count attribute.')
 
-        if __self__.Count is None:
+        if __self__.Index is None:
             raise NotImplementedError(
-                'Subclass must define __self__.Count attribute.')
+                'Subclass must define __self__.Index attribute.')
+        
+        if __self__.Shape is None:
+            raise NotImplementedError(
+                'Subclass must define __self__.Shape attribute.')
 
         if __self__.Elements is None:
             raise NotImplementedError(

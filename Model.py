@@ -1,6 +1,19 @@
-class Model(metaclass = Meta):
+'''
+Oh yeah babyyyyyy! This is how the suasage gets made son!
+'''
 
-    def __init__(__self__, Configuration, Scheme, Method, Solver):
+from Configuration import Configuration
+from Scheme import Scheme
+from Method import Method
+from Solver import Solver
+from Results import Results
+from State import State
+import time
+
+class Model(object):
+
+    def __init__(__self__, Configuration: Configuration, \
+         Scheme: Scheme, Method: Method, Solver: Solver):
         __self__.Configuration = Configuration
         __self__.Scheme = Scheme
         __self__.Method = Method
@@ -8,29 +21,19 @@ class Model(metaclass = Meta):
         __self__.Results = Results(Configuration)
         __self__.RunTime = None
 
-    def Simulate(__self__, State):
-        if State.Shape[0] != __self__.Results.shape[0]:
-            raise AttributeError('State is incompatible with Domain.\n'
-                'Check the number of elements in the domain and state.')
-
-        if State.Shape[1] != __self__.Scheme.NumberOfInitialConditions:
-            raise AttributeError('State is incompatible with Scheme.\n'
-                'Check required number of initial conditions for scheme.')
+    def Simulate(__self__, State: State):
 
         NumberOfSteps = __self__.Configuration.TimingInfo.NumberOfSteps
-        NumberOfICs = __self__.Scheme.NumberOfInitialConditions
 
         StartTime = time.time()
 
-        __self__.Results[:, :, :, 0:NumberOfICs] = State
+        __self__.Results.ProvideData(State)
 
-        for i in range(NumberOfSteps):
-            __self__.Scheme.Step(
-                __self__.Configuration, 
-                __self__.Method,
-                __self__.Solver,
-                State)
+        __self__.Scheme.Step(__self__.Configuration, __self__.Method, __self__.Solver, State)
+
+        # for i in range(NumberOfSteps):
+        #     __self__.Scheme.Step(__self__.Configuration, __self__.Method, __self__.Solver, State)
             
-            __self__.Results[:, :, :, i + NumberOfICs] = State
+        #     __self__.Results.ProvideData(State)
         
         __self__.RunTime.append(time.time() - StartTime)
