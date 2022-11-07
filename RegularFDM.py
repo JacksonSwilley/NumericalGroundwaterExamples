@@ -2,6 +2,10 @@
 This is a concrete subclass of Method, that creates a finite difference method matrix
 for a regular grid and paramters that can change with state.
 '''
+
+from Method import Method
+import numpy as np
+
 class RegularFDM(Method):
     def BuildMatrices(__self__, Configuration, State=None):
 

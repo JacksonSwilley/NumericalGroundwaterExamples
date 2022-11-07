@@ -2,7 +2,7 @@
 Abstract Base Class for timing information. Forces subclasses
 to have required attributes
 '''
-
+from Meta import Meta
 
 class TimingInfo(metaclass = Meta):
 
