@@ -8,12 +8,14 @@ from Domain import Domain
 from Grid import Grid
 from Conductivity import Conductivity
 from Storage import Storage
+from Source import Source
 
 class GriddedDomain(Domain):
 
     def __init__(__self__, Grid: Grid, \
         Storage: Storage, \
-        Conductivity: Conductivity):
+        Conductivity: Conductivity, \
+        Source: list[Source] = None):
 
         __self__.Count = Grid.Count
         __self__.Index = Grid.Index
@@ -49,6 +51,10 @@ class GriddedDomain(Domain):
                     element.Conductivities[j] = element.Lengths[j] \
                         / ( (element.Lengths[j] - element.InsideLengths[j]) / K2  \
                         + (element.InsideLengths[j]) / K1)
+
+            if Source != None:
+                for j in range(len(Source)):
+                    Source[j].ApplySource(element)
 
         
         for boundary in Grid.BoundaryElements:

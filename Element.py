@@ -20,6 +20,7 @@ class Element(object):
         __self__.Lengths = Distances
         __self__.InsideLengths = InsideDistances
         __self__.Volumes = __self__.Footprint * Thickness
+        __self__.Source = 0.0
     
     def Area(__self__, Locator):
         return __self__.Areas[np.where(__self__.AdjacentCells == Locator)]

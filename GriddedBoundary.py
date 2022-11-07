@@ -36,12 +36,5 @@ class GriddedBoundary(Boundary):
             
             boundary.Conductivities = 2 / (1/Kb + 1/Ke)
 
-            face = boundary.Face
-            boundary.Coefficient = 0
-            boundary.Head = 0
-            boundary.Flux = 0
             for j in range(len(BoundaryConditions)):
-                C, H, Q = BoundaryConditions[j].ReturnBC(face)
-                boundary.Coefficient = boundary.Coefficient + C
-                boundary.Head = boundary.Head + H
-                boundary.Flux = boundary.Flux + Q
+                BoundaryConditions[j].ApplyBC(boundary)

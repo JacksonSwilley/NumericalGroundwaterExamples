@@ -23,6 +23,8 @@ class IrregularFVM(Method):
             for i in range(n):
                 element = Configuration.Domain.Elements[i]
 
+                Solution[i] = Solution[i] + element.Source
+
                 for j in range(6):
                     if element.AdjacentCells[j] >= 0:
                         
@@ -45,6 +47,8 @@ class IrregularFVM(Method):
             t = State.TimeIndex
             for i in range(n):
                 element = Configuration.Domain.Elements[i]
+
+                Solution[i] = Solution[i] + element.Source
 
                 for j in range(6):
                     if element.AdjacentCells[j] >= 0:

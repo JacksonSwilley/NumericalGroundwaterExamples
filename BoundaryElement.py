@@ -17,6 +17,9 @@ class BoundaryElement(object):
         __self__.AdjacentCells = AdjacentCells
         __self__.Areas = Areas
         __self__.Lengths = Distances
+        __self__.Coefficient = 0
+        __self__.Head = 0
+        __self__.Flux = 0
 
     def Area(__self__, Locator):
         return __self__.Areas[np.where(__self__.AdjacentCells == Locator)]

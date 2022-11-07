@@ -16,6 +16,10 @@ class VariableConductivity(Conductivity):
         ny = np.shape(Values)[1]
         nz = np.shape(Values)[2]
 
+        __self__.nx = nx
+        __self__.ny = ny
+        __self__.nz = nz
+
         __self__.dx = (Bounds[1] - Bounds[0]) / nx
         __self__.dy = (Bounds[3] - Bounds[2]) / ny
         __self__.dz = (Bounds[5] - Bounds[4]) / nz
@@ -26,9 +30,21 @@ class VariableConductivity(Conductivity):
 
     def ReturnK(__self__, X=None, Y=None, Z=None, Saturation=None):
 
-        i = np.where((__self__.x >= X - __self__.dx / 2) & (__self__.x < X + __self__.dx / 2))
-        j = np.where((__self__.y >= Y - __self__.dy / 2) & (__self__.y < Y + __self__.dy / 2))
-        k = np.where((__self__.z >= Z - __self__.dz / 2) & (__self__.z < Z + __self__.dz / 2))
+        i = 0
+        for i in range(1,__self__.nx):
+            if(__self__.x[i] >= X and __self__.x[i-1] <= X): break
+        
+        j = 0
+        for j in range(1,__self__.ny):
+            if(__self__.y[j] >= Y and __self__.y[j-1] <= Y): break
+        
+        k = 0
+        for k in range(1,__self__.nz):
+            if(__self__.z[k] >= Z and __self__.z[k-1] <= Z): break
+
+        # i = np.where((__self__.x >= X - __self__.dx / 2) & (__self__.x <= X + __self__.dx / 2))
+        # j = np.where((__self__.y >= Y - __self__.dy / 2) & (__self__.y <= Y + __self__.dy / 2))
+        # k = np.where((__self__.z >= Z - __self__.dz / 2) & (__self__.z <= Z + __self__.dz / 2))
 
         values = __self__.Values[i,j,k,:].flatten()
 

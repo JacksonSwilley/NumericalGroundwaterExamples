@@ -3,6 +3,7 @@ A boundary Condition
 '''
 
 from BoundaryCondition import BoundaryCondition
+from BoundaryElement import BoundaryElement
 
 class BasicNeumann(BoundaryCondition):
 
@@ -19,7 +20,10 @@ class BasicNeumann(BoundaryCondition):
             __self__.Fluxes[i] = Fluxes[ticker]
             ticker = ticker + 1
     
-    def ReturnBC(__self__, Face):
+    def ApplyBC(__self__, BoundaryElement: BoundaryElement):
 
-        return [__self__.Coefficients[Face], \
-            __self__.Heads[Face], __self__.Fluxes[Face]]
+        Face = BoundaryElement.Face
+
+        BoundaryElement.Coefficient = BoundaryElement.Coefficient + __self__.Coefficients[Face]
+        BoundaryElement.Head = BoundaryElement.Head + __self__.Heads[Face]
+        BoundaryElement.Flux = BoundaryElement.Flux + __self__.Fluxes[Face]

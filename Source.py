@@ -6,11 +6,11 @@ of solutions
 
 from Meta import Meta
 
-class BoundaryCondition(metaclass = Meta):
+class Source(metaclass = Meta):
 
-    ApplyBC = None
+    ApplySource = None
 
     def CheckAttributes(__self__):
-        if __self__.ApplyBC == None:
+        if __self__.ApplySource == None:
             raise NotImplementedError(
-                    'Subclass must define __self__.ApplyBC Method.')
+                    'Subclass must define __self__.ApplySource Method.')
