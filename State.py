@@ -2,9 +2,12 @@
 State is a concrete class used to store the dependent variable
 at the current time step, as well as the the current time
 '''
+
+from Configuration import Configuration
+
 class State(object):
 
-    def __init__(__self__, Data, Configuration):
+    def __init__(__self__, Data, Configuration: Configuration):
 
         __self__.TimeIndex = 0
 
@@ -20,9 +23,9 @@ class State(object):
 
     def Update(__self__, Data, Configuration):
 
-        __self__.TimeIndex += 1
-
-        __self__.CurrentTime = Configuration.TimingInfo.Time[__self__.TimeIndex]
+        if(Configuration.TimingInfo.StepSize) > 0:
+            __self__.TimeIndex += 1
+            __self__.CurrentTime = Configuration.TimingInfo.Time[__self__.TimeIndex]
 
         if len(Data) == Configuration.Domain.Count:
             __self__.Data = Data

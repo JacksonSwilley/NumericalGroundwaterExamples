@@ -11,6 +11,6 @@ class NumpySolver(Solver):
     def __init__(__self__):
         pass
     
-    def InvertMatrix(Coefficients):
+    def InvertMatrix(__self__, Coefficients):
         return inv(Coefficients)
 

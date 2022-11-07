@@ -13,13 +13,13 @@ import time
 class Model(object):
 
     def __init__(__self__, Configuration: Configuration, \
-         Scheme: Scheme, Method: Method, Solver: Solver):
+            Scheme: Scheme, Method: Method, Solver: Solver):
         __self__.Configuration = Configuration
         __self__.Scheme = Scheme
         __self__.Method = Method
         __self__.Solver = Solver
         __self__.Results = Results(Configuration)
-        __self__.RunTime = None
+        __self__.RunTime = []
 
     def Simulate(__self__, State: State):
 
@@ -29,11 +29,9 @@ class Model(object):
 
         __self__.Results.ProvideData(State)
 
-        __self__.Scheme.Step(__self__.Configuration, __self__.Method, __self__.Solver, State)
-
-        # for i in range(NumberOfSteps):
-        #     __self__.Scheme.Step(__self__.Configuration, __self__.Method, __self__.Solver, State)
+        for i in range(NumberOfSteps):
+            __self__.Scheme.Step(__self__.Configuration, __self__.Method, __self__.Solver, State)
             
-        #     __self__.Results.ProvideData(State)
+            __self__.Results.ProvideData(State)
         
         __self__.RunTime.append(time.time() - StartTime)
