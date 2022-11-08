@@ -35,17 +35,42 @@ class Results(object):
 
         nx = __self__.Configuration.Domain.Shape[0]
         ny = __self__.Configuration.Domain.Shape[1]
+        nz = __self__.Configuration.Domain.Shape[2]
 
-        x = np.reshape(__self__.X, (nx,ny))
-        y = np.reshape(__self__.Y, (nx,ny))
-        h = np.reshape(__self__.Data[:,-1], (nx,ny))
+        if nz <= 1:
 
-        plt.figure(dpi=300, figsize=(10,4))
-        ax = plt.axes(projection='3d')
-        ax.plot_surface(x,y,h, rstride=1, cstride=1,
-            cmap='viridis', edgecolor='none')
+            x = np.reshape(__self__.X,(nx,ny,nz),order='F')[:,:,0]
+            y = np.reshape(__self__.Y,(nx,ny,nz),order='F')[:,:,0]
+            h = np.reshape(__self__.Data,(nx,ny,nz),order='F')[:,:,0]
+
+            plt.figure(dpi=300, figsize=(10,4))
+            ax = plt.axes(projection='3d')
+            ax.plot_surface(x,y,h, rstride=1, cstride=1,
+                cmap='viridis', edgecolor='none')
         
-        plt.show()
+            plt.show()
+        
+        if nz > 1:
+
+            x = np.reshape(__self__.X,(nx,ny,nz),order='F')[:,:,0]
+            y = np.reshape(__self__.Y,(nx,ny,nz),order='F')[:,:,0]
+            h = np.reshape(__self__.Data,(nx,ny,nz),order='F')[:,:,0]
 
 
+            fig = plt.figure(dpi=300, figsize=(12,6))
 
+            ax = fig.add_subplot(1, 2, 1, projection='3d')
+            ax.plot_surface(x,y,h, rstride=1, cstride=1,
+                cmap='viridis', edgecolor='none')
+            ax.set_title('Hydraulic Head: Top Layer')
+
+            h = np.reshape(__self__.Data,(nx,ny,nz),order='F')[:,:,-1]
+
+            ax = fig.add_subplot(1, 2, 2, projection='3d')
+            ax.plot_surface(x,y,h, rstride=1, cstride=1,
+                cmap='viridis', edgecolor='none')
+            ax.set_title('Hydraulic Head: Bottom Layer')
+            plt.colorbar
+            plt.tight_layout
+            plt.show
+            
