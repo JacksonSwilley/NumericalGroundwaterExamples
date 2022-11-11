@@ -19,7 +19,7 @@ class Element(object):
         __self__.Footprint = Areas[4]
         __self__.Lengths = Distances
         __self__.InsideLengths = InsideDistances
-        __self__.Volumes = __self__.Footprint * Thickness
+        __self__.Volume = __self__.Footprint * Thickness
         __self__.Source = 0.0
     
     def Area(__self__, Locator):

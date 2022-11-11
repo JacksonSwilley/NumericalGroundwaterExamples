@@ -13,4 +13,4 @@ class UniformTiming(TimingInfo):
         __self__.StartTime = StartTime
         __self__.NumberOfSteps = NumberOfSteps
         __self__.Time = np.linspace(StartTime, \
-            StartTime + StepSize * (NumberOfSteps-1), num=NumberOfSteps)
+            StartTime + StepSize * (NumberOfSteps), num=NumberOfSteps+1)

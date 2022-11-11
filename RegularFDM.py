@@ -28,17 +28,22 @@ class RegularFDM(Method):
             for i in range(n):
                 element = Configuration.Domain.Elements[i]
 
-                for j in  element.AdjacentCells:
+                Solution[i] = Solution[i] - element.Source/ element.Volume
 
-                    Matrix[i, j] = element.Conductivity(j) / element.Length(j)**(2)
+                for j in range(6):
+                    if element.AdjacentCells[j] >= 0:
+                        Matrix[i, int(element.AdjacentCells[j])] \
+                            = element.Conductivities[j] / (element.Lengths[j] * element.InsideLengths[j] * 2)
             
-                Matrix[i, i] = -2 * np.sum(Matrix[i, :])
+                Matrix[i, i] = -np.sum(Matrix[i, :])
         
             for boundary in Configuration.Boundary.Elements:
-                for j in boundary.AdjacentCells:
-                    Matrix[j,j] += - boundary.Coefficient * element.Conductivity(j) / element.Length(j)**(2)
-                    Solution[j] += - boundary.Head * element.Conductivity(j) / element.Length(j)**(2) + \
-                        boundary.Flux / boundary.Volume(j)
+                j = int(boundary.AdjacentCells)
+                face = boundary.Face
+
+                Matrix[j,j] = Matrix[j,j] -  boundary.Coefficient * element.Conductivities[face] / element.InsideLengths[face]**(2)
+                Solution[j] = Solution[j] - boundary.Head * element.Conductivities[face] / element.InsideLengths[face]**(2) + \
+                    boundary.Flux / element.Volume
 
         elif(State == None):
             raise RuntimeError(
@@ -48,18 +53,23 @@ class RegularFDM(Method):
             for i in range(n):
                 element = Configuration.Domain.Elements[i]
 
-                for j in  element.AdjacentCells:
+                Solution[i] = Solution[i] - element.Source / element.Volume
 
-                    Matrix[i, j] = element.Conductivity(j) / element.Length(j)**(2)
+                for j in range(6):
+                    if element.AdjacentCells[j] >= 0:
+                        
+                        Matrix[i, int(element.AdjacentCells[j])] \
+                            = element.Conductivities[j] / (element.Lengths[j] * element.InsideLengths[j] * 2)
             
-                Matrix[i, i] = -2 * np.sum(Matrix[i, :]) - element.Storage / dt
-                Solution[i] = -State.Data[i] * element.Storage / dt
+                Matrix[i, i] = - np.sum(Matrix[i, :]) - element.Storage / dt
+                Solution[i] = Solution[i] - State.Data[i] * element.Storage / dt
         
             for boundary in Configuration.Boundary.Elements:
-                for j in boundary.AdjacentCells:
-                    Matrix[j,j] += - boundary.Coefficient * element.Conductivity(j) / element.Length(j)**(2)
+                j = int(boundary.AdjacentCells)
+                face = boundary.Face
 
-                    Solution[j] += - boundary.Head * element.Conductivity(j) / element.Length(j)**(2) + \
-                        boundary.Flux / boundary.Volume(j)
+                Matrix[j,j] =  Matrix[j,j] -  boundary.Coefficient * element.Conductivities[face] / element.InsideLengths[face]**(2)
+                Solution[j] = Solution[j] - boundary.Head * element.Conductivities[face] / element.InsideLengths[face]**(2) + \
+                    boundary.Flux / element.Volume
 
         return Matrix, Solution

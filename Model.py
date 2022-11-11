@@ -1,5 +1,5 @@
 '''
-Oh yeah babyyyyyy! This is how the suasage gets made son!
+Oh yeah babyyyyyy! This is how the sausage gets made son!
 '''
 
 from Configuration import Configuration

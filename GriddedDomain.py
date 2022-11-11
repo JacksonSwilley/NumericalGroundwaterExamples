@@ -21,6 +21,7 @@ class GriddedDomain(Domain):
         __self__.Index = Grid.Index
         __self__.Elements = Grid.Elements
         __self__.Shape = Grid.Shape
+        __self__.Regular = True
 
         for element in __self__.Elements:
             element.Storage = Storage.ReturnS(element.Center[0], \
