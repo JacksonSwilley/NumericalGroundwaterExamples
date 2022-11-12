@@ -38,11 +38,11 @@ class RegularFVM(Method):
                 Matrix[i, i] = -np.sum(Matrix[i, :])
 
             for boundary in Configuration.Boundary.Elements:
-                j = int(boundary.AdjacentCells)
+                j = int(boundary.AdjacentCell)
                 face = boundary.Face
-                Matrix[j,j] = Matrix[j,j] - boundary.Coefficient * element.Areas[face] * element.Conductivities[face] / element.InsideLengths[face]
-                Solution[j] = Solution[j] - boundary.Head * element.Areas[face] * element.Conductivities[face] / element.InsideLengths[face] + \
-                    boundary.Flux
+                Matrix[j,j] = Matrix[j,j] - boundary.Coefficient * element.Areas[face] * boundary.Conductivities[face] / boundary.Length
+                Solution[j] = Solution[j] - boundary.Head * element.Areas[face] * boundary.Conductivities[face] / boundary.Length - \
+                    boundary.Flux * element.Areas[face]
 
         elif(State == None):
             raise RuntimeError(
@@ -60,14 +60,14 @@ class RegularFVM(Method):
                         Matrix[i, int(element.AdjacentCells[j])]\
                             = element.Areas[j] * element.Conductivities[j] / element.Lengths[j]
             
-                Matrix[i, i] = -np.sum(Matrix[i, :]) - element.Storage * element.Volume / dt
-                Solution[i] = Solution[i] -State.Data[i] * element.Storage * element.Volume / dt
+                Matrix[i, i] = -np.sum(Matrix[i, :]) - element.Storage / dt
+                Solution[i] = Solution[i] -State.Data[i] * element.Storage  / dt
             
             for boundary in Configuration.Boundary.Elements:
-                j = int(boundary.AdjacentCells)
+                j = int(boundary.AdjacentCell)
                 face = boundary.Face
-                Matrix[j,j] = Matrix[j,j] - boundary.Coefficient * element.Areas[face] * element.Conductivities[face] / element.InsideLengths[face]
-                Solution[j] = Solution[j] - boundary.Head * element.Areas[face] * element.Conductivities[face] / element.InsideLengths[face] + \
-                    boundary.Flux 
+                Matrix[j,j] = Matrix[j,j] - boundary.Coefficient * element.Areas[face] * boundary.Conductivities[face] / boundary.Length
+                Solution[j] = Solution[j] - boundary.Head * element.Areas[face] * boundary.Conductivities[face] / boundary.Length - \
+                    boundary.Flux * element.Areas[face]
 
         return Matrix, Solution

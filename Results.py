@@ -43,20 +43,21 @@ class Results(object):
 
                 x = np.reshape(__self__.X,(nx,ny,nz),order='F')[:,:,0]
                 y = np.reshape(__self__.Y,(nx,ny,nz),order='F')[:,:,0]
-                h = np.reshape(__self__.Data[:,-1],(nx,ny,nz),order='F')[:,:,0]
+                h = np.reshape(__self__.Data[:,0],(nx,ny,nz),order='F')[:,:,0]
 
                 plt.figure(dpi=300, figsize=(10,4))
                 ax = plt.axes(projection='3d')
                 ax.plot_surface(x,y,h, rstride=1, cstride=1,
                     cmap='viridis', edgecolor='none')
-            
+
+                plt.title('Steady-State Hydraulic Head')
                 plt.show()
             
             if nz > 1:
 
                 x = np.reshape(__self__.X,(nx,ny,nz),order='F')[:,:,0]
                 y = np.reshape(__self__.Y,(nx,ny,nz),order='F')[:,:,0]
-                h = np.reshape(__self__.Data[:,-1],(nx,ny,nz),order='F')[:,:,0]
+                h = np.reshape(__self__.Data[:,0],(nx,ny,nz),order='F')[:,:,0]
 
 
                 fig = plt.figure(dpi=300, figsize=(12,6))
@@ -66,7 +67,7 @@ class Results(object):
                     cmap='viridis', edgecolor='none')
                 ax.set_title('Hydraulic Head: Top Layer')
 
-                h = np.reshape(__self__.Data,(nx,ny,nz),order='F')[:,:,-1,-1]
+                h = np.reshape(__self__.Data[:,-1],(nx,ny,nz),order='F')[:,:,-1,-1]
 
                 ax = fig.add_subplot(2, 1, 2, projection='3d')
                 ax.plot_surface(x,y,h, rstride=1, cstride=1,
@@ -79,11 +80,11 @@ class Results(object):
         if nt > 1:
             if nz <= 1:
 
+                fig = plt.figure(dpi=300, figsize=(12,6))
+
                 x = np.reshape(__self__.X,(nx,ny,nz),order='F')[:,:,0]
                 y = np.reshape(__self__.Y,(nx,ny,nz),order='F')[:,:,0]
                 h = np.reshape(__self__.Data[:,0],(nx,ny,nz),order='F')[:,:,0]
-
-                fig = plt.figure(dpi=300, figsize=(12,6))
 
                 ax = fig.add_subplot(1, 2, 1, projection='3d')
                 ax.plot_surface(x,y,h, rstride=1, cstride=1,
@@ -91,8 +92,6 @@ class Results(object):
                 ax.set_title('Hydraulic Head: Initial Condition')
 
                 h = np.reshape(__self__.Data[:,-1],(nx,ny,nz),order='F')[:,:,0]
-
-                fig = plt.figure(dpi=300, figsize=(12,6))
 
                 ax = fig.add_subplot(1, 2, 2, projection='3d')
                 ax.plot_surface(x,y,h, rstride=1, cstride=1,

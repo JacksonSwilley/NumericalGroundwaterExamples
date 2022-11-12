@@ -28,7 +28,7 @@ class RegularFDM(Method):
             for i in range(n):
                 element = Configuration.Domain.Elements[i]
 
-                Solution[i] = Solution[i] - element.Source/ element.Volume
+                Solution[i] = Solution[i] - element.Source
 
                 for j in range(6):
                     if element.AdjacentCells[j] >= 0:
@@ -38,12 +38,12 @@ class RegularFDM(Method):
                 Matrix[i, i] = -np.sum(Matrix[i, :])
         
             for boundary in Configuration.Boundary.Elements:
-                j = int(boundary.AdjacentCells)
+                j = int(boundary.AdjacentCell)
                 face = boundary.Face
 
-                Matrix[j,j] = Matrix[j,j] -  boundary.Coefficient * element.Conductivities[face] / element.InsideLengths[face]**(2)
-                Solution[j] = Solution[j] - boundary.Head * element.Conductivities[face] / element.InsideLengths[face]**(2) + \
-                    boundary.Flux / element.Volume
+                Matrix[j,j] = Matrix[j,j] -  boundary.Coefficient * boundary.Conductivities[face] / boundary.Length**(2)
+                Solution[j] = Solution[j] - boundary.Head * boundary.Conductivities[face] / boundary.Length**(2) - \
+                    boundary.Flux * boundary.Area / element.Volume
 
         elif(State == None):
             raise RuntimeError(
@@ -53,7 +53,7 @@ class RegularFDM(Method):
             for i in range(n):
                 element = Configuration.Domain.Elements[i]
 
-                Solution[i] = Solution[i] - element.Source / element.Volume
+                Solution[i] = Solution[i] - element.Source
 
                 for j in range(6):
                     if element.AdjacentCells[j] >= 0:
@@ -65,11 +65,11 @@ class RegularFDM(Method):
                 Solution[i] = Solution[i] - State.Data[i] * element.Storage / dt
         
             for boundary in Configuration.Boundary.Elements:
-                j = int(boundary.AdjacentCells)
+                j = int(boundary.AdjacentCell)
                 face = boundary.Face
 
-                Matrix[j,j] =  Matrix[j,j] -  boundary.Coefficient * element.Conductivities[face] / element.InsideLengths[face]**(2)
-                Solution[j] = Solution[j] - boundary.Head * element.Conductivities[face] / element.InsideLengths[face]**(2) + \
-                    boundary.Flux / element.Volume
+                Matrix[j,j] =  Matrix[j,j] -  boundary.Coefficient * element.Conductivities[face] / boundary.Length**(2)
+                Solution[j] = Solution[j] - boundary.Head * element.Conductivities[face] / boundary.Length**(2)  - \
+                    boundary.Flux * boundary.Area / element.Volume
 
         return Matrix, Solution

@@ -12,8 +12,8 @@ class BasicDirichlet(BoundaryCondition):
         assert len(Faces) == len(Heads)
         __self__.Faces = Faces
         __self__.Coefficients = [0, 0, 0, 0, 0, 0]
-        __self__.Heads = [0, 0, 0, 0, 0, 0]
-        __self__.Fluxes = [0, 0, 0, 0, 0, 0]
+        __self__.Heads = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        __self__.Fluxes = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
         ticker = 0
         for i in Faces:

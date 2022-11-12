@@ -60,7 +60,7 @@ class GriddedDomain(Domain):
         
         for boundary in Grid.BoundaryElements:
 
-            i = int(boundary.AdjacentCells)
+            i = int(boundary.AdjacentCell)
             element = __self__.Elements[i]
 
             face = int(boundary.Face)
