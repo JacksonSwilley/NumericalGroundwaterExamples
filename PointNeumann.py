@@ -4,7 +4,7 @@ A source
 from Source import Source
 from Element import Element
 
-class PointNuemann(Source):
+class PointNeumann(Source):
     def __init__(__self__, Range, Flux):
         __self__.Range = Range
         __self__.Flux = Flux

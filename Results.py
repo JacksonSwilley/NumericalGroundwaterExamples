@@ -12,7 +12,7 @@ class Results(object):
     def __init__(__self__, Configuration: Configuration):
 
         __self__.Shape = (int(Configuration.Domain.Count), \
-            int(Configuration.TimingInfo.NumberOfSteps+1))
+            int(Configuration.TimingInfo.NumberOfSteps + 1))
         
         __self__.Data = np.zeros((__self__.Shape[0],__self__.Shape[1]))
 
@@ -60,14 +60,14 @@ class Results(object):
                 h = np.reshape(__self__.Data[:,0],(nx,ny,nz),order='F')[:,:,0]
 
 
-                fig = plt.figure(dpi=300, figsize=(12,6))
+                fig = plt.figure(dpi=300, figsize=(12,12))
 
                 ax = fig.add_subplot(2, 1, 1, projection='3d')
                 ax.plot_surface(x,y,h, rstride=1, cstride=1,
                     cmap='viridis', edgecolor='none')
                 ax.set_title('Hydraulic Head: Top Layer')
 
-                h = np.reshape(__self__.Data[:,-1],(nx,ny,nz),order='F')[:,:,-1,-1]
+                h = np.reshape(__self__.Data[:,-2],(nx,ny,nz),order='F')[:,:,-1]
 
                 ax = fig.add_subplot(2, 1, 2, projection='3d')
                 ax.plot_surface(x,y,h, rstride=1, cstride=1,
@@ -80,7 +80,7 @@ class Results(object):
         if nt > 1:
             if nz <= 1:
 
-                fig = plt.figure(dpi=300, figsize=(12,6))
+                fig = plt.figure(dpi=300, figsize=(6,6))
 
                 x = np.reshape(__self__.X,(nx,ny,nz),order='F')[:,:,0]
                 y = np.reshape(__self__.Y,(nx,ny,nz),order='F')[:,:,0]

@@ -24,8 +24,10 @@ class State(object):
     def Update(__self__, Data, Configuration):
 
         if(Configuration.TimingInfo.StepSize) > 0:
-            __self__.TimeIndex += 1
+            __self__.TimeIndex = __self__.TimeIndex + 1
             __self__.CurrentTime = Configuration.TimingInfo.Time[__self__.TimeIndex]
+            
+
 
         if len(Data) == Configuration.Domain.Count:
             __self__.Data = Data
